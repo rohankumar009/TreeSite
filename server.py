@@ -1,11 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import re
 import urllib
-
-"""
-Tried my best to get the server to work. It was not really working the remaining times that it was just result in a 404 error or say that the data is not being sent, 
-I did open the pages individually, and I was able to get all the pages to work, so they do work just not through the local host
-"""
 
 contacts = [["test", "test@gmail.com", "2023-10-24", "Haircut", "No"]]
 
@@ -14,6 +8,7 @@ def split_parameter(parameter):
     k_escaped = urllib.parse.unquote(k)
     v_escaped = urllib.parse.unquote(v)
     return k_escaped, v_escaped
+
 
 def split_url(info):
     parameters = info.split("&")
@@ -63,8 +58,10 @@ tr:nth-child(even) {
         <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Date</th>
-            <th>Straight Cash Homie?</th>
+            <th>Appointment Day</th>
+            <th>Service</th>
+            <th>Paying w/ Cash</th>
+            <th>Delete Row</th>
         </tr>
     """
 
@@ -90,46 +87,19 @@ tr:nth-child(even) {
 
         return result
 
-# PUT YOUR GLOBAL VARIABLES AND HELPER FUNCTIONS HERE.
-#contact_log = [
-#     {"name": "John Doe", "email": "johndoe@example.com", "date": "2023-10-20", "service": "general"},
-#]
-# It is not required, but is is strongly recommended that you write a function to parse form data out of the URL, and a second function for generating the contact log page html.
-
-
-# Takes the query and returns a list containing the requested file and the parameters.
-"""
-def process_form_data(query_params):
-    
-    # Check query_params for the ?. If exists, need to return list with first element being the file, and second element the 'name'
-    if ('?' in query_params):
-        url_split = query_params.split("?")
-        url_split[1] = url_split[1][5:]
-        return url_split
-    else:
-        return [query_params]
-
-def generate_contact_log_html():
-    table = "<table>"
-    for contact in contact_log:
-        table += f"<tr><td>Name: {contact['name']}</td><td>Email: {contact['email']}</td><td>Date: {contact['date']}</td><td>Service: {contact['service']}</td></tr>"
-    table += "</table>"
-    return table
-"""
-def server(url):
+def server_GET(url: str) -> tuple[str | bytes, str, int]:
     """
-    url is a *PARTIAL* URL. If the browser requests `http://localhost:4131/contact?name=joe#test`
-    then the `url` parameter will have the value "/contact?name=joe". So you can expect the PATH
-    and any PARAMETERS from the url, but nothing else.
+    url is a *PARTIAL* URL. If the browser requests `http://localhost:4131/contact?name=joe`
+    then the `url` parameter will have the value "/contact?name=joe". (so the schema and
+    authority will not be included, but the full path, any query, and any anchor will be included)
 
     This function is called each time another program/computer makes a request to this website.
     The URL represents the requested file.
 
-    This function should return two strings in a list or tuple. The first is the content to return
-    The second is the content-type.
+    This function should return three values (string or bytes, string, int) in a list or tuple. The first is the content to return
+    The second is the content-type. The third is the HTTP Status Code for the response
     """
     #YOUR CODE GOES HERE!
-
 
     parameters = None
     if "?" in url:
@@ -140,11 +110,11 @@ def server(url):
     if url == "/contact":
         if parameters is not None:
             split_url(parameters)
-        return open("static/html/contactform.html").read(), "text/html; charset= utf-8"
+        return open("static/html/contactform.html").read(), "text/html; charset= utf-8", 200
     elif url == "/main" or url == "/":
-        return open("static/html/mainpage.html").read(), "text/html; charset= utf-8"
+        return open("static/html/mainpage.html").read(), "text/html; charset= utf-8", 200
     elif url == "/testimonies":
-        return open("static/html/testimonies.html").read(), "text/html; charset= utf-8"
+        return open("static/html/testimonies.html").read(), "text/html; charset= utf-8", 200
     elif url == "/admin/contactlog":
         return (
             """
@@ -174,7 +144,7 @@ def server(url):
                                     <tr>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Preferred Appointment Day</th>
+                                        <th>Appointment Day</th>
                                         <th>Service</th>
                                         <th>Paying with Cash</th>
                                     </tr>
@@ -194,53 +164,45 @@ def server(url):
             "text/html; charset=utf-8"
         )
     elif url == "/main.css":
-        return open("static/css/main.css").read(), "text/css"
+        return open("static/css/main.css").read(), "text/css", 200
     elif url == "/images/main":
-        return open("static/images/Tree.jpeg", "br").read(), "image/jpeg"
+        return open("static/images/Tree.jpeg", "br").read(), "image/jpeg", 200
     else:
-        return open("static/html/404.html").read(), "text/html: charset=utf-8"
+        return open("static/html/404.html").read(), "text/html: charset=utf-8", 404
     
 
 
+def server_POST(url: str, body: str) -> tuple[str | bytes, str, int]:
+    """
+    url is a *PARTIAL* URL. If the browser requests `http://localhost:4131/contact?name=joe`
+    then the `url` parameter will have the value "/contact?name=joe". (so the schema and
+    authority will not be included, but the full path, any query, and any anchor will be included)
 
+    This function is called each time another program/computer makes a POST request to this website.
 
-    # url_to_file = {
-    #     "/": "static/html/mainpage.html",
-    #     "/main": "static/html/mainpage.html",
-    #     "/contact": "static/html/contactform.html",
-    #     "/testimonies": "static/html/testimonies.html",
-    #     "/admin/contactlog": "static/html/contactlog.html",
-    #     "/main.css": "static/css/main.css",
-    #     "/images/main": "static/images/Tree.jpeg"
-    # }
-
-    # parsed_message = process_form_data(url)
-    # if len(parsed_message) == 1:
-    #     extension = url_to_file[parsed_message[0]].split(".")[1]
-    #     file_type = "text/html"
-    #     if extension == "html":
-    #         file_type = "text/html"
-    #     elif extension == "css":
-    #         file_type = "text/css"
-    #     return (open(url_to_file[parsed_message[0]], "rb").read(), file_type)
-    
-    # return (open("static/html/mainpage.html").read(), "text/html")
-    
-
-    # return open("static/html/mainpage.html").read(), "main/html"
-    # return open("static/html/testimonies.html").read(), "testimonies/html"
-    # return open("static/html/contact.html").read(), "contact/html"
-    # return open("static/html/contactlist.html").read(), "contactlist/html"
-    # return open("static/html/mainpage.html").read(), "main/html"
-    # return open("static/html/mainpage.html").read(), "main/html"
-
+    This function should return three values (string or bytes, string, int) in a list or tuple. The first is the content to return
+    The second is the content-type. The third is the HTTP Status Code for the response
+    """
+    if url == "/contact":        
+        print("this is a body")
+        split_url(body)
+        print(body)
+        return open("static/css/main.css").read(), "text/css", 200
+    else:
+        return open("static/html/404.html").read(), "text/html: charset=utf-8", 404
 
 # You shouldn't need to change content below this. It would be best if you just left it alone.
 
 class RequestHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        # Call the student-edited server code.
-        message, content_type = server(self.path)
+    def do_POST(self):
+        # Read the content-length header sent by the BROWSER
+        content_length = int(self.headers.get('Content-Length',0))
+        # read the data being uploaded by the BROWSER
+        body = self.rfile.read(content_length)
+        # we're making some assumptions here -- but decode to a string.
+        body = str(body, encoding="utf-8")
+
+        message, content_type, response_code = server_POST(self.path, body)
 
         # Convert the return value into a byte string for network transmission
         if type(message) == str:
@@ -249,7 +211,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         # prepare the response object with minimal viable headers.
         self.protocol_version = "HTTP/1.1"
         # Send response code
-        self.send_response(200)
+        self.send_response(response_code)
         # Send headers
         # Note -- this would be binary length, not string length
         self.send_header("Content-Length", len(message))
@@ -261,10 +223,34 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(message)
         return
 
+    def do_GET(self):
+        # Call the student-edited server code.
+        message, content_type, response_code = server_GET(self.path)
+
+        # Convert the return value into a byte string for network transmission
+        if type(message) == str:
+            message = bytes(message, "utf8")
+
+        # prepare the response object with minimal viable headers.
+        self.protocol_version = "HTTP/1.1"
+        # Send response code
+        self.send_response(response_code)
+        # Send headers
+        # Note -- this would be binary length, not string length
+        self.send_header("Content-Length", len(message))
+        self.send_header("Content-Type", content_type)
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.end_headers()
+
+        # Send the file.
+        self.wfile.write(message)
+        return
+
+
 def run():
     PORT = 4131
     print(f"Starting server http://localhost:{PORT}/")
-    server = ('', PORT)
+    server = ("", PORT)
     httpd = HTTPServer(server, RequestHandler)
     httpd.serve_forever()
 
