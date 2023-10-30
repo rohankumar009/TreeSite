@@ -1,0 +1,8 @@
+body {
+    background-color: #004225; /* Set your light mode background color */
+}
+
+body.dark-mode {
+    background-color: #222; /* Set your dark mode background color */
+    color: #fff; /* Set text color for dark mode */
+}

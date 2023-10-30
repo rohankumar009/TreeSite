@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="/main.css">
+
+    <title>Contact Us</title>
+
+</head>
+<body>
+
+    <div class="navbar">
+        <ul>
+            <li><a href="/main">Tree Planters</a></li>
+            <li><a href="/testimonies">Testimonials</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <a href="/admin/contactlog">ADMIN Contact Log</a>
+            <li><button id="themeToggle">Toggle Theme</button></li>
+        </ul>
+    </div>
+
+    <h1>Contact Us</h1>
+
+    <h1>Schedule an Appointment</h1>
+
+    <div class="form-container">
+        <form action="/contact" method="post">
+            <label for="name"> Your Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            
+            <label for="email"> Your Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            
+            <label for="date"> Today's Date:</label>
+            <input type="date" id="date" name="date"><br><br>
+            
+            <label for="dropdown"> What Tree:</label>
+            <select id="dropdown" name="service">
+                <option value="Bonsai">Bonsai</option>
+                <option value="Apple">Apple</option>
+                <option value="Maple">Mapple</option>
+                <option value="Pine">Pine</option>
+            </select><br><br>
+            
+            <!-- <label for="subscribe">Subscribe to Newsletter:</label> -->
+            <!-- <input type="checkbox" id="subscribe" name="subscribe" value="yes"><br><br> -->
+            
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+        
+</body>
+</html>
