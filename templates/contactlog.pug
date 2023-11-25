@@ -1,0 +1,92 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  title My Contacts
+  link(rel='stylesheet' type='text/css' href='/css/main.css')
+  link(rel='stylesheet' type='text/css' href='/css/main.dark.css')
+  style.
+    .add-entry-box {
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-top: 20px;
+    }
+
+
+    /* Style for the form elements */
+    .add-entry-box form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+    .add-entry-box label {
+    margin-right: 10px;
+    }
+    .add-entry-box input {
+    padding: 5px;
+    }
+    .add-entry-box button {
+    padding: 5px 10px;
+    }
+header
+  nav
+    a(href='/') My Company
+    a(href='/testimonies') Testimonials
+    a(href='/contact') Contact Us
+    a(href='/admin/contactlog') Contacts
+main#Appointments
+  h1 My Contacts and Appointments
+  div
+    table
+      thead
+        tr
+      tbody
+        style.
+          table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+          }
+          td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+          }
+          tr:nth-child(even) {
+          background-color: #dddddd;
+          }
+        table
+          tr
+            th Name
+            th Email
+            th Appointment Day
+            th Service
+            th Delete Row
+          tr
+            th Jack
+            th jack@gmail.com
+            th 2023-10-26
+            th Bonsai
+            th
+              button(onclick='deleteRow(this)') Delete
+        script.
+          function deleteRow(button) {
+          var row = button.parentNode.parentNode;
+          row.parentNode.removeChild(row);
+          }
+  .add-entry-box
+    form(action='/admin/contactlog' method='get')
+      label(for='Sales banner') Sales Banner:
+      input#newEntry(type='text' name='newEntry')
+      button(type='submit') Set
+      button(type='submit') Delete
+
+  .add-entry-box
+
+style.
+  .add-entry-box form {
+    display: flex;
+    flex-direction: row; /* Change this from column to row */
+    align-items: center;
+    justify-content: center; /* This will center the buttons horizontally */
+  }
