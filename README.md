@@ -19,3 +19,6 @@ As I embark on this project, I have a clear set of learning objectives in mind:
 - **Back-End Basics**: Additionally, I'll seize the opportunity to grasp the basics of back-end development by setting up a Python server and mastering URL routing.
 - **CSS Challenge**: To enhance the visual appeal of my website, I'll tackle a CSS challenge that goes beyond the basics, relying on technical references and guides for guidance.
 - **Preparation for the Future**: Lastly, I'll lay the groundwork for future assignments and more complex web development tasks, ensuring my journey is a continuous path of growth and learning.
+
+
+Updated all files and project structure to utilize node and express
