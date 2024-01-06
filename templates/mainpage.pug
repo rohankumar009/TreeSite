@@ -1,0 +1,31 @@
+doctype html
+html(lang='en')
+  head
+    title Food Review Microblog
+    link(rel='stylesheet', href='/css/main.css')
+  body
+    header
+      nav
+        ul
+          li
+            a(href='/') Home
+          li
+            a(href='/reviews') Reviews
+          li
+            a(href='/recent-posts') Recent Posts
+          li
+            a(href='/login') Login
+    main
+      .hero
+        // Hero section design here
+      .content-area
+        .reviews-section
+          h2 Reviews
+          .reviews
+            // Loop through reviews and display each with image, description, etc.
+        .recent-posts-section
+          h2 Recent Posts
+          .recent-posts
+            // Loop through recent posts and display each with image, description, etc.
+    footer
+      // Footer elements here
