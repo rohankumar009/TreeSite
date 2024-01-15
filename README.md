@@ -1,4 +1,4 @@
-# CompanyWebsite
+# TreeSite
 
 ## Project Goal
 In this deeply personal project, I am embarking on a web development journey with a clear goal in mind. I want to create a captivating "company website" that not only showcases my creativity but also serves as a remarkable learning experience. My objective is to master the art of web development while gaining a comprehensive understanding of HTTP and web protocols.
