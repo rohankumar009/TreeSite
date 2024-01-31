@@ -1,0 +1,85 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Make the image cover the entire page */
+  body {
+    background: url('/images/background.jpeg') no-repeat center center fixed;
+    background-size: cover;
+  }
+  
+ /* Navbar styles */
+ nav.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 3em;
+    background-color: transparent; /* No background for the navbar */
+  }
+  
+  nav.navbar .logo a {
+    font-weight: bold;
+    font-size: 2em; /* Adjust size as needed */
+    color: #333; /* Adjust color as needed */
+    text-decoration: none;
+  }
+  
+  ul.nav-links {
+    list-style-type: none;
+    display: flex;
+    gap: 20px; /* Adjust space between links as needed */
+  }
+  
+  ul.nav-links li a {
+    font-size: 1.2em; /* Adjust size as needed */
+    color: #333; /* Adjust color as needed */
+    text-decoration: none;
+    padding: 5px;
+    transition: all 0.3s ease;
+  }
+  
+  ul.nav-links li a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  
+  
+  /* Search section styles */
+  section.search-section {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+  }
+  
+  form.search-form input[type='text'] {
+    padding: 0.5em;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    width: 20em;
+    margin-right: 0.5em;
+  }
+  
+  form.search-form button {
+    padding: 0.5em 1em;
+    background-color: #f8f8f8;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  form.search-form button:hover {
+    background-color: #e2e2e2;
+  }
+  
